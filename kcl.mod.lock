@@ -1,0 +1,10 @@
+[dependencies]
+  [dependencies.crossplane]
+    name = "crossplane"
+    full_name = "crossplane_1.17.0"
+    version = "1.17.0"
+    sum = "incFUn1a1FqUTWLqHIB4TP+fCCuzRLgHuqiMgFNOxMI="
+  [dependencies.k8s]
+    name = "k8s"
+    full_name = "k8s_1.28"
+    version = "1.28"
