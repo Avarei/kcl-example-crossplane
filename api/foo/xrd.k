@@ -1,16 +1,16 @@
 import crossplane.v1 as xrdv1
 import k8s.apimachinery.pkg.apis.meta.v1 as metav1
 import k8s.apiextensions_apiserver.pkg.apis.apiextensions.v1 as crdv1
-import crossplanebase
-import k8sbase
+import base.crossplane
+import base.k8s
 
-schema Foo(k8sbase.k8sResource):
+schema Foo(k8s.k8sResource):
     apiVersion: "v1" = "v1"
     kind: "Foo" = "Foo"
-    metadata: metav1.ObjectMeta
+    metadata?: metav1.ObjectMeta
     spec: FooSpec
 
-schema FooSpec(crossplanebase.CompositeResourceSpec):
+schema FooSpec(crossplane.CompositeResourceSpec):
     parameters: FooSpecParameters
 
 schema FooSpecParameters:
