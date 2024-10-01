@@ -4,31 +4,48 @@ import k8s.apiextensions_apiserver.pkg.apis.apiextensions.v1 as crdv1
 import base.crossplane
 import base.k8s
 
+_group: "avarei.github.com" = "avarei.github.com"
+_version = "v1"
+_apiVersion: "avarei.github.com/v1" = "avarei.github.com/v1"
+_plural = "xfoos"
+
 schema Foo(k8s.k8sResource):
-    apiVersion: "v1" = "v1"
+    apiVersion: _apiVersion = _apiVersion
     kind: "Foo" = "Foo"
     metadata?: metav1.ObjectMeta
     spec: FooSpec
 
-schema FooSpec(crossplane.CompositeResourceSpec):
+schema FooSpec(crossplane.ClaimResourceSpec):
+    parameters: FooSpecParameters
+
+schema xFoo(k8s.k8sResource):
+    apiVersion: _apiVersion = _apiVersion
+    kind: "xFoo" = "xFoo"
+    metadata?: metav1.ObjectMeta
+    spec: xFooSpec
+
+schema xFooSpec(crossplane.CompositeResourceSpec):
     parameters: FooSpecParameters
 
 schema FooSpecParameters:
     foo: str
 
 xrdv1.CompositeResourceDefinition {
+    metadata = {
+        name = "${_plural}.${_group}"
+    }
     spec = {
-        group = "foo"
+        group = "${_group}"
         names = {
             kind = "xFoo"
-            plural = "xfoos"
+            plural = "${_plural}"
         }
         claimNames = {
             kind = "Foo"
             plural = "foos"
         }
         versions = [{
-            name = "v1alpha1"
+            name = "${_version}"
             schema.openAPIV3Schema = crdv1.JSONSchemaProps {
                 type = "object"
                 properties = {

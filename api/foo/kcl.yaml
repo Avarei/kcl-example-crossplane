@@ -1,0 +1,18 @@
+kcl_options:
+- key: params
+  value:
+    oxr:
+      apiVersion: avarei.github.com/v1
+      kind: xFoo
+      metadata:
+        name: hello
+      spec:
+        claimRef:
+          apiVersion: avarei/v1
+          kind: Foo
+          name: hello
+          namespace: default
+        compositionRef:
+          name: hello
+        parameters:
+          foo: "bar"
